@@ -16,7 +16,7 @@ class AccountController {
 
     @PostMapping()
     ResponseEntity<?> createAccount(CreateAccountDto dto) {
-        return new ResponseEntity<>(accountFacade.HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 }

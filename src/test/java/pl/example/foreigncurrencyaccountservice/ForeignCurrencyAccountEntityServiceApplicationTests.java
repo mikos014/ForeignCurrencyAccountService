@@ -1,10 +1,10 @@
-package pl.nn.foreigncurrencyaccountservice;
+package pl.example.foreigncurrencyaccountservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ForeignCurrencyAccountServiceApplicationTests {
+class ForeignCurrencyAccountEntityServiceApplicationTests {
 
     @Test
     void contextLoads() {

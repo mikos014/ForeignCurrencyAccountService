@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.example.foreigncurrencyaccountservice.app.domain.currencyaccount.CurrencyAccountEntity;
+import pl.example.foreigncurrencyaccountservice.app.domain.useraccount.exception.UserAccountNotFoundException;
 import pl.example.foreigncurrencyaccountservice.app.service.currencyaccount.dto.CurrencyAccountDto;
 import pl.example.foreigncurrencyaccountservice.app.service.useraccount.UserAccountService;
 import pl.example.foreigncurrencyaccountservice.app.service.useraccount.dto.CreateUserAccountDto;
@@ -21,11 +22,17 @@ class UserAccountDomainService implements UserAccountService {
     private final UserAccountCurrencyAccountAdapter currencyAccountAdapter;
 
     @Transactional
+    @Override
     public UserAccountDto createUserAccount(CreateUserAccountDto dto) {
         var plnAccount = currencyAccountAdapter.createCurrencyAccount(dto);
         var userAccount = buildUserAccountEntity(dto, plnAccount);
         userAccount = userAccountRepository.save(userAccount);
         return buildUserAccount(userAccount);
+    }
+
+    @Override
+    public UserAccountDto getUserAccount(UUID accountId) throws UserAccountNotFoundException {
+        return buildUserAccount(userAccountRepository.receiveUserAccountEntity(accountId));
     }
 
     private UserAccountDto buildUserAccount(UserAccountEntity userAccount) {
@@ -36,6 +43,7 @@ class UserAccountDomainService implements UserAccountService {
                 .build();
 
         return UserAccountDto.builder()
+                .uuid(userAccount.getUuid())
                 .name(userAccount.getName())
                 .surname(userAccount.getSurname())
                 .currencyAccounts(List.of(plnAccountDto))

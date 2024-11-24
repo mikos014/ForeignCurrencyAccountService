@@ -11,11 +11,11 @@ import java.math.BigDecimal;
 @Data
 public class CreateUserAccountDto {
 
-    private String uuid;
-
     private String name;
 
     private String surname;
 
     private BigDecimal amount;
 }
+
+

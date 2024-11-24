@@ -4,14 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.example.foreigncurrencyaccountservice.app.domain.currencyaccount.CurrencyAccountEntity;
-import pl.example.foreigncurrencyaccountservice.app.service.currencyaccount.CurrencyEnum;
 import pl.example.foreigncurrencyaccountservice.app.service.currencyaccount.dto.CurrencyAccountDto;
 import pl.example.foreigncurrencyaccountservice.app.service.useraccount.UserAccountService;
 import pl.example.foreigncurrencyaccountservice.app.service.useraccount.dto.CreateUserAccountDto;
 import pl.example.foreigncurrencyaccountservice.app.service.useraccount.dto.UserAccountDto;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -30,7 +29,7 @@ class UserAccountDomainService implements UserAccountService {
     }
 
     private UserAccountDto buildUserAccount(UserAccountEntity userAccount) {
-        var plnAccountEntity = userAccount.getCurrencyAccountList().getFirst();
+        var plnAccountEntity = userAccount.getCurrencyAccountSet().stream().toList().getFirst();
         var plnAccountDto = CurrencyAccountDto.builder()
                 .amount(plnAccountEntity.getAmount())
                 .currency(plnAccountEntity.getCurrency())
@@ -44,6 +43,6 @@ class UserAccountDomainService implements UserAccountService {
     }
 
     private UserAccountEntity buildUserAccountEntity(CreateUserAccountDto dto, CurrencyAccountEntity plnAccount) {
-        return new UserAccountEntity(UUID.randomUUID(), dto.getName(), dto.getSurname(), List.of(plnAccount));
+        return new UserAccountEntity(UUID.randomUUID(), dto.getName(), dto.getSurname(), Set.of(plnAccount));
     }
 }

@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import pl.example.foreigncurrencyaccountservice.app.domain.currencyaccount.CurrencyAccountEntity;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -22,14 +22,15 @@ public class UserAccountEntity {
     private String name;
     private String surname;
 
-    @OneToMany(mappedBy = "users")
-    private List<CurrencyAccountEntity> currencyAccountList;
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private Set<CurrencyAccountEntity> currencyAccountSet;
 
-    UserAccountEntity(UUID uuid, String name, String surname, List<CurrencyAccountEntity> currencyAccountList) {
+    UserAccountEntity(UUID uuid, String name, String surname, Set<CurrencyAccountEntity> currencyAccountSet) {
         this.uuid = uuid;
         this.name = name;
         this.surname = surname;
-        this.currencyAccountList = currencyAccountList;
+        this.currencyAccountSet = currencyAccountSet;
     }
 }
 

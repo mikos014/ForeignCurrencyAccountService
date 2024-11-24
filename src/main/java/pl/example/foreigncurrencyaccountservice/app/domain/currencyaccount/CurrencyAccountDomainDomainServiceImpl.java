@@ -32,7 +32,7 @@ class CurrencyAccountDomainDomainServiceImpl implements CurrencyAccountDomainSer
     public CurrencyAccountDto createCurrencyAccount(CreateCurrencyAccountDto dto) throws CurrencyAccountExistsException, UserAccountNotFoundException {
         var currencyEnum = CurrencyEnum.getEnum(dto.getRequestedAccountCurrency());
         currencyAccountRepository.checkIfExists(dto.getUserAccountUuid(), currencyEnum);
-        var entity = new CurrencyAccountEntity(BigDecimal.ZERO, currencyEnum);
+        var entity = currencyAccountRepository.save(new CurrencyAccountEntity(BigDecimal.ZERO, currencyEnum));
         userAccountAdapter.appendCurrencyAccount(dto.getUserAccountUuid(), entity);
         return CurrencyAccountDto.builder()
                 .amount(entity.getAmount())

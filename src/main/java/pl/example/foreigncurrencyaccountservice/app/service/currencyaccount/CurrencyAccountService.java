@@ -1,9 +1,11 @@
 package pl.example.foreigncurrencyaccountservice.app.service.currencyaccount;
 
-import pl.example.foreigncurrencyaccountservice.app.domain.currencyaccount.CurrencyAccountEntity;
-import pl.example.foreigncurrencyaccountservice.app.service.useraccount.dto.CreateUserAccountDto;
+import pl.example.foreigncurrencyaccountservice.app.domain.currencyaccount.exception.CurrencyAccountExistsException;
+import pl.example.foreigncurrencyaccountservice.app.domain.useraccount.exception.UserAccountNotFoundException;
+import pl.example.foreigncurrencyaccountservice.app.service.currencyaccount.dto.CreateCurrencyAccountDto;
+import pl.example.foreigncurrencyaccountservice.app.service.currencyaccount.dto.CurrencyAccountDto;
 
 public interface CurrencyAccountService {
 
-    CurrencyAccountEntity createCurrencyAccount(CreateUserAccountDto dto);
+    CurrencyAccountDto createCurrencyAccount(CreateCurrencyAccountDto dto) throws CurrencyAccountExistsException, UserAccountNotFoundException;
 }

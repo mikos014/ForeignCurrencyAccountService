@@ -10,6 +10,7 @@ import pl.example.foreigncurrencyaccountservice.app.domain.useraccount.exception
 import pl.example.foreigncurrencyaccountservice.app.service.currencyaccount.CurrencyAccountService;
 import pl.example.foreigncurrencyaccountservice.app.service.currencyaccount.dto.CreateCurrencyAccountDto;
 import pl.example.foreigncurrencyaccountservice.app.service.currencyaccount.dto.CurrencyAccountDto;
+import pl.example.foreigncurrencyaccountservice.app.service.currencyaccount.dto.ExchangeMoneyDto;
 
 @Slf4j
 @RestController
@@ -18,7 +19,7 @@ import pl.example.foreigncurrencyaccountservice.app.service.currencyaccount.dto.
 class CurrencyAccountController {
     private final CurrencyAccountService currencyAccountDomainService;
 
-    @PostMapping
+    @PostMapping(value = "/setup")
     ResponseEntity<?> setUpNewCurrencyAccount(@RequestBody CreateCurrencyAccountDto dto) {
         try {
             CurrencyAccountDto newAccount = currencyAccountDomainService.createCurrencyAccount(dto);
@@ -32,5 +33,11 @@ class CurrencyAccountController {
 //            tymczasowe rozwiązanie, dalej bym zastosował @ExceptionHandler
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PatchMapping("/exchange")
+    ResponseEntity<?> exchangeCurrency(@RequestBody ExchangeMoneyDto dto) {
+//        todo do dokończenia
+        return new ResponseEntity<>(currencyAccountDomainService.exchangeMoney(dto), HttpStatus.OK);
     }
 }

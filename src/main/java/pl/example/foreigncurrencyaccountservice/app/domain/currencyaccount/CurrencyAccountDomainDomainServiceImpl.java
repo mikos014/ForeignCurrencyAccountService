@@ -8,9 +8,11 @@ import pl.example.foreigncurrencyaccountservice.app.service.currencyaccount.Curr
 import pl.example.foreigncurrencyaccountservice.app.service.currencyaccount.CurrencyEnum;
 import pl.example.foreigncurrencyaccountservice.app.service.currencyaccount.dto.CreateCurrencyAccountDto;
 import pl.example.foreigncurrencyaccountservice.app.service.currencyaccount.dto.CurrencyAccountDto;
+import pl.example.foreigncurrencyaccountservice.app.service.currencyaccount.dto.ExchangeMoneyDto;
 import pl.example.foreigncurrencyaccountservice.app.service.useraccount.dto.CreateUserAccountDto;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 class CurrencyAccountDomainDomainServiceImpl implements CurrencyAccountDomainService, CurrencyAccountService {
@@ -40,6 +42,11 @@ class CurrencyAccountDomainDomainServiceImpl implements CurrencyAccountDomainSer
                 .build();
     }
 
+    @Override
+    public List<CurrencyAccountDto> exchangeMoney(ExchangeMoneyDto dto) {
+        //todo do dokończenia
+        return null;
+    }
 
 
 }

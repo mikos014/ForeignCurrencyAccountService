@@ -1,4 +1,4 @@
-package pl.example.foreigncurrencyaccountservice.app.api.rest;
+package pl.example.foreigncurrencyaccountservice.app.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.example.foreigncurrencyaccountservice.app.domain.currencyaccount.exception.CurrencyAccountExistsException;
+import pl.example.foreigncurrencyaccountservice.app.domain.currencyaccount.exception.CurrencyAccountFewAmountException;
 import pl.example.foreigncurrencyaccountservice.app.domain.useraccount.exception.UserAccountNotFoundException;
 import pl.example.foreigncurrencyaccountservice.app.service.currencyaccount.CurrencyAccountService;
 import pl.example.foreigncurrencyaccountservice.app.service.currencyaccount.dto.CreateCurrencyAccountDto;
@@ -37,7 +38,10 @@ class CurrencyAccountController {
 
     @PatchMapping("/exchange")
     ResponseEntity<?> exchangeCurrency(@RequestBody ExchangeMoneyDto dto) {
-//        todo do dokończenia
-        return new ResponseEntity<>(currencyAccountDomainService.exchangeMoney(dto), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(currencyAccountDomainService.exchangeMoney(dto), HttpStatus.OK);
+        } catch (CurrencyAccountFewAmountException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 }

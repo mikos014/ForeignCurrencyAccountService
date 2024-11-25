@@ -1,4 +1,4 @@
-package pl.example.foreigncurrencyaccountservice.app.api.rest;
+package pl.example.foreigncurrencyaccountservice.app.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -7,17 +7,13 @@ import lombok.NoArgsConstructor;
 import pl.example.foreigncurrencyaccountservice.app.service.currencyaccount.CurrencyEnum;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class ExchangeMoneyDto {
-    private UUID userAccountUuid;
-    private BigDecimal amount;
+public class CurrencyRateDto {
     private CurrencyEnum currency;
-    private boolean isSell;
-    private LocalDateTime boughtDateTime;
+    private BigDecimal sellRate;
+    private BigDecimal buyRate;
 }
